@@ -1,0 +1,12 @@
+/*
+usage: <span class="{} nekocfg0"></span>
+*/
+
+.nekocfg0 {display:inline-block; overflow:hidden; background-repeat: no-repeat;background-image:url(nekocfg.gif);}
+
+.AppIcon {width:32px; height:32px; background-position: -2px -2px}
+.displayi {width:16px; height:16px; background-position: -38px -20px}
+.independence {width:16px; height:16px; background-position: -38px -2px}
+.movement {width:16px; height:16px; background-position: -20px -36px}
+.play {width:8px; height:9px; background-position: -38px -38px}
+.sounds {width:16px; height:16px; background-position: -2px -36px}

@@ -1,0 +1,38 @@
+/*
+usage: <span class="{} neko0"></span>
+*/
+
+.neko0 {background-image:url(neko0.gif);}
+
+.Awake {width:32px; height:32px; background-position: -342px -36px}
+.Down1 {width:32px; height:32px; background-position: -308px -70px}
+.Downleft2 {width:32px; height:32px; background-position: -308px -36px}
+.Downright1 {width:32px; height:32px; background-position: -342px -2px}
+.Right1 {width:32px; height:32px; background-position: -308px -2px}
+.Rightclaw2 {width:32px; height:32px; background-position: -274px -70px}
+.Up1 {width:32px; height:32px; background-position: -274px -36px}
+.Up2 {width:32px; height:32px; background-position: -274px -2px}
+.Upleft1 {width:32px; height:32px; background-position: -240px -70px}
+.Upleft2 {width:32px; height:32px; background-position: -240px -36px}
+.Upright1 {width:32px; height:32px; background-position: -240px -2px}
+.Upright2 {width:32px; height:32px; background-position: -206px -70px}
+.down2 {width:32px; height:32px; background-position: -206px -36px}
+.downclaw1 {width:32px; height:32px; background-position: -206px -2px}
+.downclaw2 {width:32px; height:32px; background-position: -172px -70px}
+.downleft1 {width:32px; height:32px; background-position: -172px -36px}
+.downright2 {width:32px; height:32px; background-position: -172px -2px}
+.left1 {width:32px; height:32px; background-position: -138px -70px}
+.left2 {width:32px; height:32px; background-position: -138px -36px}
+.leftclaw1 {width:32px; height:32px; background-position: -138px -2px}
+.leftclaw2 {width:32px; height:32px; background-position: -104px -70px}
+.right2 {width:32px; height:32px; background-position: -104px -36px}
+.rightclaw1 {width:32px; height:32px; background-position: -104px -2px}
+.scratch1 {width:32px; height:32px; background-position: -70px -70px}
+.scratch2 {width:32px; height:32px; background-position: -70px -36px}
+.sleep1 {width:32px; height:32px; background-position: -70px -2px}
+.sleep2 {width:32px; height:32px; background-position: -36px -70px}
+.upclaw1 {width:32px; height:32px; background-position: -36px -36px}
+.upclaw2 {width:32px; height:32px; background-position: -36px -2px}
+.wash2 {width:32px; height:32px; background-position: -2px -70px}
+.yawn2 {width:32px; height:32px; background-position: -2px -36px}
+.yawn3 {width:32px; height:32px; background-position: -2px -2px}
