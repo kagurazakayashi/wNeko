@@ -1,5 +1,6 @@
-.neko {
-    display:block;
-    overflow:hidden;
+.neko, .nekoz {
+    display: block;
+    overflow: hidden;
     background-repeat: no-repeat;
+    position: absolute;
 }

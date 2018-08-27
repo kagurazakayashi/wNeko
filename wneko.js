@@ -6,6 +6,8 @@ var wcat_sensitivity = 100; //警觉距离
 //内部变量
 var wcat_anitimer = null; //动作定时器
 var wcat_runtimer = null; //移动定时器
+var wcat_wneko = $("#wneko"); //主框架div
+var wcat_mousexy = [0,0]; //当前鼠标位置
 //动画序列
 const wcat_ani = {
     "awake":["Awake"], //警觉!
@@ -30,20 +32,50 @@ function wcat_anitimerdo() {
 }
 //移动定时器触发
 function wcat_runtimerdo() {
+    let nekos = $(".neko");
+    nekos.each(function(){
+        let ty = $(this).css("top");
+        let tx = $(this).css("left");
+        wcat_direction(tx,ty);
+    });
+}
+//比对相对位置
+function wcat_direction(tx,ty) {
+    
+}
+//获得初始坐标
+function wcat_centerxy() {
+    let csize = wcat_size * 0.5;
+    let x = (document.documentElement.clientWidth * 0.5) - csize;
+    let y = (document.documentElement.clientHeight * 0.5) - csize;
+    return [x,y];
 }
 //创建和删除定时器
-function setmaininterval(ison=true) {
+function wcat_setmaininterval(ison=true) {
     if (ison) {
-        wcat_anitimer = setInterval(wcat_anitimerdo(),wcat_runtimer);
-        wcat_anitimer = setInterval(wcat_runtimerdo(),wcat_runspeed);
+        wcat_anitimer = setInterval("wcat_anitimerdo()",wcat_runtimer);
+        wcat_anitimer = setInterval("wcat_runtimerdo()",wcat_runspeed);
     } else {
         clearInterval(maintimer);
     }
 }
 //重新创建定时器
-function resetmaininterval() {
-    setmaininterval(false);
-    setmaininterval(true);
+function wcat_resetmaininterval() {
+    wcat_setmaininterval(false);
+    wcat_setmaininterval(true);
+}
+//初始化位置
+function wcat_initxy() {
+    let centerxy = wcat_centerxy();
+    let nekos = $(".neko");
+    nekos.css({"top":centerxy[0],"left":centerxy[1],"width":wcat_size,"height":wcat_size});
+    nekos.attr("catmode","awake");
+    $(window).mousemove(function(e) {
+        let x = e.pageX;
+        let y = e.pageY;
+        wcat_mousexy = [x,y];
+    });
 }
 //main
-setmaininterval();
+wcat_initxy();
+wcat_setmaininterval();
