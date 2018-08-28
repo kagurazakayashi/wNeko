@@ -1,7 +1,8 @@
 //可选配置
 var wcat_size = 32; //尺寸
 var wcat_anispeed = 1000; //动作速度
-var wcat_runspeed = 1000; //移动速度
+var wcat_runspeed = 10; //移动速度
+var wcat_runspeedx = 1; //移动倍速
 var wcat_sensitivity = 100; //警觉距离
 //内部变量
 var wcat_anitimer = null; //动作定时器
@@ -34,14 +35,56 @@ function wcat_anitimerdo() {
 function wcat_runtimerdo() {
     let nekos = $(".neko");
     nekos.each(function(){
-        let ty = $(this).css("top");
-        let tx = $(this).css("left");
-        wcat_direction(tx,ty);
+        let ny = parseInt($(this).css("top"));
+        let nx = parseInt($(this).css("left"));
+        wcat_direction(nx,ny);
     });
 }
 //比对相对位置
-function wcat_direction(tx,ty) {
-    
+function wcat_direction(nx,ny) {
+    let nekos = $(".neko");
+    nekos.each(function(){
+        let tx = wcat_mousexy[0];
+        let ty = wcat_mousexy[1];
+        var ax = 0;
+        var ay = 0;
+        var dirstr = "";
+        var isedit = false;
+        var mout = wcat_runspeedx;
+        if ($(this).attr("catplay") == 0) {
+            mout = wcat_sensitivity;
+        }
+        if (Math.abs(ny - ty) > mout) {
+            if (ny < ty) {
+                dirstr += "down";
+                ay += wcat_runspeedx;
+            } else {
+                dirstr += "up";
+                ay -= wcat_runspeedx;
+            }
+            isedit = true;
+        }
+        if (Math.abs(nx - tx) > mout) {
+            if (nx < tx) {
+                dirstr += "right";
+                ax += wcat_runspeedx;
+            } else {
+                dirstr += "left";
+                ax -= wcat_runspeedx;
+            }
+            isedit = true;
+        }
+        if (isedit) {
+            $(this).css({"top":(ny+ay+"px"),"left":(nx+ax+"px"),"width":wcat_size,"height":wcat_size});
+            $(this).attr("catplay",1);
+        } else {
+            dirstr = "stopani";
+            $(this).attr("catplay",0);
+        }
+        if (dirstr != "" && $(this).attr("catmode") != dirstr) {
+            $(this).attr("catmode",dirstr);
+        }
+    });
 }
 //获得初始坐标
 function wcat_centerxy() {
@@ -69,7 +112,7 @@ function wcat_initxy() {
     let centerxy = wcat_centerxy();
     let nekos = $(".neko");
     nekos.css({"top":centerxy[0],"left":centerxy[1],"width":wcat_size,"height":wcat_size});
-    nekos.attr("catmode","awake");
+    nekos.attr({"catmode":"awake","catplay":0});
     $(window).mousemove(function(e) {
         let x = e.pageX;
         let y = e.pageY;
