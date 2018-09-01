@@ -1,13 +1,14 @@
 //可选配置
-var wcat_size = 32; //尺寸
+var wcat_scale = 1.0; //缩放倍数
 var wcat_runspeed = 200; //移动速度
 var wcat_runspeedx = 10; //移动倍速
 var wcat_sensitivity = 64; //警觉距离
 var wcat_sensitivityt = 2; //警觉时长
 //内部变量
+var wcat_size = 32; //尺寸
 var wcat_runtimer = null; //移动定时器
 var wcat_wneko = $("#wneko"); //主框架div
-var wcat_mousexy = [0,0]; //当前鼠标位置
+var wcat_mousexy = [-1000,-1000]; //当前鼠标位置
 var wcat_sensitivityi = -1; //警觉时长计数器
 //动画序列
 const wcat_ani = {
@@ -36,7 +37,6 @@ function wcat_runtimerdo() {
 //获取body边界尺寸
 function wcat_bodypadding() {
     let tbody = $("body");
-    let pp = 5;
     let paddingleft = parseInt(tbody.css("padding-left"));
     let paddingright = parseInt(tbody.css("padding-right"));
     let paddingtop = parseInt(tbody.css("padding-top"));
@@ -53,6 +53,9 @@ function wcat_bodypadding() {
 }
 //比对相对位置
 function wcat_direction(tcat) {
+    if (wcat_mousexy[0] == -1000 && wcat_mousexy[1] == -1000) {
+        return;
+    }
     if (wcat_sensitivityi > -1) {
         wcat_sensitivityi++;
         if (wcat_sensitivityi > wcat_sensitivityt) {
@@ -78,6 +81,7 @@ function wcat_direction(tcat) {
     var ncatmode = tcat.attr("catmode");
     let catplay = parseInt(tcat.attr("catplay"));
     let catstop = parseInt(tcat.attr("catstop"));
+    var movenow = false;
     tx -= wcat_size * 0.5;
     ty -= wcat_size;
     if (catstop == 1) {
@@ -101,7 +105,10 @@ function wcat_direction(tcat) {
             mout = wcat_sensitivity;
         }
     }
-    if (Math.abs(ny - ty) > mout) {
+    let nty = Math.abs(ny - ty);
+    if (nty > 1000) {
+        movenow = true;
+    } else if (nty > mout) {
         if (ny < ty) {
             dirstr += "down";
             ay += wcat_runspeedx;
@@ -111,7 +118,10 @@ function wcat_direction(tcat) {
         }
         isedit = true;
     }
-    if (Math.abs(nx - tx) > mout) {
+    let ntx = Math.abs(nx - tx);
+    if (ntx > 1000) {
+        movenow = true;
+    } else if (ntx > mout) {
         if (nx < tx) {
             dirstr += "right";
             ax += wcat_runspeedx;
@@ -139,13 +149,16 @@ function wcat_direction(tcat) {
             catanii = 0;
         }
         tcat.attr("catmode",dirstr);
+        if (movenow) {
+            tcat.css({"top":(ty+"px"),"left":(tx+"px"),"width":wcat_size,"height":wcat_size});
+        }
         if (tclasss[0] === undefined) {
             tclasss[0] = "Awake";
             catanii = 0;
             wcat_sensitivityi = 0;
             tcat.attr("catstop",0);
         } else {
-            tcat.css({"top":(ny+ay+"px"),"left":(nx+ax+"px"),"width":wcat_size,"height":wcat_size});
+            if (!movenow) wcat_setnicocss((nx+ax+"px"),(ny+ay+"px"),tcat);
             tcat.attr("catplay",1);
         }
         let newclass = tclasss.join(" ");
@@ -164,20 +177,41 @@ function wcat_setmaininterval(ison=true) {
     if (ison) {
         wcat_anitimer = setInterval("wcat_runtimerdo()",wcat_runspeed);
     } else {
-        clearInterval(maintimer);
+        clearInterval(wcat_anitimer);
     }
 }
-//重新创建定时器
+//重新创建定时器(重置)
 function wcat_resetmaininterval() {
     wcat_setmaininterval(false);
+    let centerxy = wcat_centerxy();
+    let nekos = $(".neko");
+    wcat_setnicocss(centerxy[1],centerxy[0]);
+    nekos.attr({"catmode":"awake","catplay":0,"catstop":0,"catani":0});
+    wcat_mousexy = [-1000,-1000];
+    nekos.css("transform",("scale("+wcat_scale+")"));
     wcat_setmaininterval(true);
+}
+//终止
+function wcat_exit() {
+    $(document).unbind('mousemove');
+    wcat_setmaininterval(false);
+    $(".wcat").remove();
+}
+function wcat_setnicocss(x,y,neko=null) {
+    let ncss = {"top":y,"left":x};
+    if (neko == null) {
+        $(".neko").css(ncss);
+    } else {
+        neko.css(ncss);
+    }
 }
 //初始化位置
 function wcat_initxy() {
     let centerxy = wcat_centerxy();
+    wcat_setnicocss(centerxy[1],centerxy[0]);
     let nekos = $(".neko");
-    nekos.css({"top":centerxy[0],"left":centerxy[1],"width":wcat_size,"height":wcat_size});
     nekos.attr({"catmode":"awake","catplay":0,"catstop":0,"catani":0});
+    nekos.css("transform",("scale("+wcat_scale+")"));
     $(window).mousemove(function(e) {
         let x = e.pageX;
         let y = e.pageY;
