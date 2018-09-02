@@ -1,11 +1,13 @@
 //可选配置
 var wcat_scale = 1.0; //缩放倍数
-var wcat_runspeed = 200; //移动速度
-var wcat_runspeedx = 10; //移动倍速
-var wcat_sensitivity = 64; //警觉距离
+var wcat_runspeed = 200; //动画刷新速度
+var wcat_runspeedf = 10; //每次刷新移动距离
+var wcat_sensitivity = 800; //警觉距离
 var wcat_sensitivityt = 2; //警觉时长
 //内部变量
 var wcat_size = 32; //尺寸
+var wcat_sizex = wcat_size; //乘缩放率后尺寸
+var wcat_delivery = 10000; //超过此距离直接传送
 var wcat_runtimer = null; //移动定时器
 var wcat_wneko = $("#wneko"); //主框架div
 var wcat_mousexy = [-1000,-1000]; //当前鼠标位置
@@ -28,6 +30,8 @@ const wcat_ani = {
     "stopani":["yawn2","yawn2","yawn2","yawn2","yawn2","wash2","yawn2","wash2","yawn2","wash2","yawn2","wash2","yawn2","wash2","yawn2","wash2","yawn2","wash2","yawn2","wash2","yawn2","wash2","yawn2","wash2","yawn2","scratch1","scratch2","scratch1","scratch2","scratch1","scratch2","scratch1","scratch2","scratch1","scratch2","yawn3","yawn3","yawn3"], //原地动画序列
     "sleep":["sleep1","sleep1","sleep1","sleep1","sleep1","sleep2","sleep2","sleep2","sleep2","sleep2"] //睡觉z
 };
+//位置静止动画列表
+const wcat_sani = ["downclaw","leftclaw","rightclaw","upclaw","stopani"];
 //移动定时器触发
 function wcat_runtimerdo() {
     $(".neko").each(function(){
@@ -71,9 +75,11 @@ function wcat_direction(tcat) {
     var ay = 0;
     var dirstr = "";
     var isedit = false;
-    var mout = wcat_runspeedx;
-    let ww = document.documentElement.clientWidth;
-    let wh = document.documentElement.clientHeight;
+    var mout = wcat_runspeedf;
+    let sw = document.documentElement.clientWidth;
+    let sh = document.documentElement.clientHeight;
+    let pw = document.documentElement.scrollWidth;
+    let ph = document.documentElement.scrollHeight;
     var claw = "stopani";
     let bodyp = wcat_bodypadding(); //0上 1下 2左 3右
     var tclasss = tcat.attr("class").split(" ");
@@ -82,52 +88,54 @@ function wcat_direction(tcat) {
     let catplay = parseInt(tcat.attr("catplay"));
     let catstop = parseInt(tcat.attr("catstop"));
     var movenow = false;
-    tx -= wcat_size * 0.5;
-    ty -= wcat_size;
+    wcat_sizex = wcat_size * wcat_scale;
+    tx -= wcat_sizex;
+    ty -= wcat_sizex;
+    // pw -= wcat_sizex;
+    // ph -= wcat_sizex;
+    // sw -= wcat_sizex;
+    // sh -= wcat_sizex;
     if (catstop == 1) {
         claw = ncatmode;
     } else {
-        if (ty + wcat_size + wcat_runspeedx >= wh - bodyp[1]) {
-            ty = wh - wcat_size;
+        if (ty + wcat_sizex + wcat_runspeedf >= sh - bodyp[1]) {
+            ty = sh - wcat_sizex;
             claw = "downclaw";
-        } else if (ty <= bodyp[0]) {
+        } else if (ty <= bodyp[0] + wcat_sizex) {
             ty = 0;
             claw = "upclaw";
         }
-        if (tx + wcat_size + wcat_runspeedx >= ww - bodyp[3]) {
-            tx = ww - wcat_size;
+        if (tx + wcat_sizex + wcat_runspeedf >= sw - bodyp[3]) {
+            tx = sw - wcat_sizex;
             claw = "rightclaw";
-        } else if (tx <= bodyp[2]) {
+        } else if (tx <= bodyp[2] + wcat_sizex) {
             tx = 0;
             claw = "leftclaw";
         }
-        if (tcat.attr("catplay") == 0) {
-            mout = wcat_sensitivity;
-        }
     }
     let nty = Math.abs(ny - ty);
-    if (nty > 1000) {
+    let ntx = Math.abs(nx - tx);
+    if (nty > wcat_delivery) {
         movenow = true;
-    } else if (nty > mout) {
-        if (ny < ty) {
+    } else if (nty > mout && (ty - wcat_runspeedf) < (sh - bodyp[1]) && (ty + wcat_runspeedf) > bodyp[0]) {
+        if (ny < ty && ty < sh) {
             dirstr += "down";
-            ay += wcat_runspeedx;
+            ay += wcat_runspeedf;
         } else {
             dirstr += "up";
-            ay -= wcat_runspeedx;
+            ay -= wcat_runspeedf;
         }
         isedit = true;
     }
-    let ntx = Math.abs(nx - tx);
-    if (ntx > 1000) {
+    if (ntx > wcat_delivery) {
         movenow = true;
-    } else if (ntx > mout) {
+    } else if (ntx > mout && (tx - wcat_runspeedf) < (sw - bodyp[3]) && (tx + wcat_runspeedf) > bodyp[2]) {
         if (nx < tx) {
             dirstr += "right";
-            ax += wcat_runspeedx;
+            ax += wcat_runspeedf;
         } else {
             dirstr += "left";
-            ax -= wcat_runspeedx;
+            ax -= wcat_runspeedf;
         }
         isedit = true;
     }
@@ -150,7 +158,7 @@ function wcat_direction(tcat) {
         }
         tcat.attr("catmode",dirstr);
         if (movenow) {
-            tcat.css({"top":(ty+"px"),"left":(tx+"px"),"width":wcat_size,"height":wcat_size});
+            tcat.css({"top":(ty+"px"),"left":(tx+"px"),"width":wcat_sizex,"height":wcat_sizex});
         }
         if (tclasss[0] === undefined) {
             tclasss[0] = "Awake";
@@ -158,16 +166,23 @@ function wcat_direction(tcat) {
             wcat_sensitivityi = 0;
             tcat.attr("catstop",0);
         } else {
-            if (!movenow) wcat_setnicocss((nx+ax+"px"),(ny+ay+"px"),tcat);
-            tcat.attr("catplay",1);
+            if (!movenow) {
+                let ttx = (nx+ax)+"px";
+                let tty = (ny+ay)+"px";
+                wcat_setnicocss(ttx,tty,tcat);
+            }
         }
         let newclass = tclasss.join(" ");
         tcat.attr({"class":newclass,"catani":catanii});
     }
 }
+//判断是否为静态状态
+function wcat_islocani(ncatmode) {
+    return $.inArray(ncatmode, wcat_sani) >= 0 ? true : false;
+}
 //获得初始坐标
 function wcat_centerxy() {
-    let csize = wcat_size * 0.5;
+    let csize = wcat_sizex * 0.5;
     let x = (document.documentElement.clientWidth * 0.5) - csize;
     let y = (document.documentElement.clientHeight * 0.5) - csize;
     return [x,y];
