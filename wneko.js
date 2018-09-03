@@ -38,7 +38,7 @@ function wcat_runtimerdo() {
         wcat_direction($(this));
     });
 }
-//获取body边界尺寸
+//获取body边界尺寸，DEMO中输出[0,0,0,0]
 function wcat_bodypadding() {
     let tbody = $("body");
     let paddingleft = parseInt(tbody.css("padding-left"));
@@ -53,13 +53,16 @@ function wcat_bodypadding() {
     let pright = paddingright + marginright;
     let ptop = paddingtop + margintop;
     let pbottom = paddingbottom + marginbottom;
-    return [ptop,pbottom,pleft,pright];
+    let bodypadding = [ptop,pbottom,pleft,pright];
+    return bodypadding;
 }
-//比对相对位置
+//比对相对位置(核心运动方法)
 function wcat_direction(tcat) {
+    //如果是初始值坐标（-1000）则不作任何处理
     if (wcat_mousexy[0] == -1000 && wcat_mousexy[1] == -1000) {
         return;
     }
+    //处于警觉状态，警觉时长计数器生效
     if (wcat_sensitivityi > -1) {
         wcat_sensitivityi++;
         if (wcat_sensitivityi > wcat_sensitivityt) {
@@ -67,122 +70,135 @@ function wcat_direction(tcat) {
         }
         return;
     }
-    let ny = parseInt(tcat.css("top"));
-    let nx = parseInt(tcat.css("left"));
-    var tx = wcat_mousexy[0];
-    var ty = wcat_mousexy[1];
-    var ax = 0;
-    var ay = 0;
-    var dirstr = "";
-    var isedit = false;
-    var mout = wcat_runspeedf;
-    let sw = document.documentElement.clientWidth;
-    let sh = document.documentElement.clientHeight;
-    let pw = document.documentElement.scrollWidth;
-    let ph = document.documentElement.scrollHeight;
-    var claw = "stopani";
-    let bodyp = wcat_bodypadding(); //0上 1下 2左 3右
-    var tclasss = tcat.attr("class").split(" ");
-    let catanii = parseInt(tcat.attr("catani"));
-    var ncatmode = tcat.attr("catmode");
-    let catplay = parseInt(tcat.attr("catplay"));
-    let catstop = parseInt(tcat.attr("catstop"));
-    var movenow = false;
-    wcat_sizex = wcat_size * wcat_scale;
-    tx -= wcat_sizex;
-    ty -= wcat_sizex;
-    // pw -= wcat_sizex;
-    // ph -= wcat_sizex;
-    // sw -= wcat_sizex;
-    // sh -= wcat_sizex;
-    if (catstop == 1) {
-        claw = ncatmode;
+    //初始化位置信息 tcat：当前猫
+    let ny = parseInt(tcat.css("top")); //当前Y
+    let nx = parseInt(tcat.css("left")); //当前X
+    var tx = wcat_mousexy[0]; //鼠标X（目标X）
+    var ty = wcat_mousexy[1]; //鼠标Y（目标Y）
+    var ax = 0; //差距X
+    var ay = 0; //差距Y
+    var dirstr = ""; //使用的新移动动画序列名称
+    var isedit = false; //如果否，使用静态序列名称作为当前动画
+    var mout = wcat_runspeedf; //每帧移动距离
+    let sw = document.documentElement.clientWidth; //视窗宽度
+    let sh = document.documentElement.clientHeight; //视窗高度
+    let pw = document.documentElement.scrollWidth; //页面宽度
+    let ph = document.documentElement.scrollHeight; //页面高度
+    var claw = "stopani"; //使用的新原地动画序列名称
+    let bodyp = wcat_bodypadding(); //保留页边距 数组 0上 1下 2左 3右
+    var tclasss = tcat.attr("class").split(" "); //数组 0当前动画序列
+    let catanii = parseInt(tcat.attr("catani")); //当前动画序列的第几张
+    var ncatmode = tcat.attr("catmode"); //目前记录的动画序列名称
+    let catstop = parseInt(tcat.attr("catstop")); //是否静止 0否 1是
+    var movenow = false; //需要传送式移动
+    wcat_sizex = wcat_size * wcat_scale; //猫尺寸 = 猫的尺寸 × 猫的缩放倍数
+    tx -= wcat_sizex; //移动到鼠标指针左上方
+    ty -= wcat_sizex; //移动到鼠标指针左上方
+    if (catstop == 1) { //如果标记为停止
+        claw = ncatmode; //新停止动画序列名称 = 当前动画序列名称
     } else {
+        //如果 鼠标Y + 猫尺寸 + 每帧移动距离 >= 视窗高度 - 视窗下边距
         if (ty + wcat_sizex + wcat_runspeedf >= sh - bodyp[1]) {
-            ty = sh - wcat_sizex;
-            claw = "downclaw";
-        } else if (ty <= bodyp[0] + wcat_sizex) {
-            ty = 0;
-            claw = "upclaw";
+            ty = sh - wcat_sizex; //鼠标（目标）Y = 视窗高度 - 猫尺寸
+            claw = "downclaw"; //静态序列名称 = 向下抓挠
         }
+        //如果 鼠标Y <= 视窗上边距 + 实际尺寸
+        else if (ty <= bodyp[0] + wcat_sizex) {
+            ty = 0; //鼠标（目标）Y = 0
+            claw = "upclaw"; //静态序列名称 = 向上抓挠
+        }
+        //如果 鼠标X + 猫尺寸 + 每帧移动距离 >= 视窗宽度 - 视窗右边距
         if (tx + wcat_sizex + wcat_runspeedf >= sw - bodyp[3]) {
-            tx = sw - wcat_sizex;
-            claw = "rightclaw";
-        } else if (tx <= bodyp[2] + wcat_sizex) {
-            tx = 0;
-            claw = "leftclaw";
+            tx = sw - wcat_sizex; //鼠标（目标）X = 视窗宽度 - 猫尺寸
+            claw = "rightclaw"; //静态序列名称 = 向右抓挠
+        }
+        //如果 鼠标X <= 视窗左边距 + 实际尺寸
+        else if (tx <= bodyp[2] + wcat_sizex) {
+            tx = 0; //鼠标（目标）X = 0
+            claw = "leftclaw"; //静态序列名称 = 向左抓挠
         }
     }
-    let nty = Math.abs(ny - ty);
-    let ntx = Math.abs(nx - tx);
+    let nty = Math.abs(ny - ty); //差值Y = 当前Y - 鼠标（目标）Y 的绝对值
+    let ntx = Math.abs(nx - tx); //差值X = 当前X - 鼠标（目标）X 的绝对值
+    //如果 差值Y > 超过此距离直接传送
     if (nty > wcat_delivery) {
-        movenow = true;
+        movenow = true; //标记为直接传送
+    //如果 差值Y > 每帧移动距离 && 目标Y - 每帧移动距离 < 视窗高度 - 视窗下边距 && 目标Y + 每帧移动距离 > 视窗上边距
     } else if (nty > mout && (ty - wcat_runspeedf) < (sh - bodyp[1]) && (ty + wcat_runspeedf) > bodyp[0]) {
-        if (ny < ty && ty < sh) {
-            dirstr += "down";
-            ay += wcat_runspeedf;
+        if (ny < ty) { //如果 当前Y < 目标Y
+            dirstr += "down"; //动画序列名称 = 向下跑动
+            ay += wcat_runspeedf; //差距Y += 每帧移动距离
         } else {
-            dirstr += "up";
-            ay -= wcat_runspeedf;
+            dirstr += "up"; //动画序列名称 = 向上跑动
+            ay -= wcat_runspeedf; //差距Y -= 每帧移动距离
         }
-        isedit = true;
+        isedit = true; //使用移动序列设为当前序列
     }
+    //如果 差值X > 超过此距离直接传送
     if (ntx > wcat_delivery) {
-        movenow = true;
+        movenow = true; //标记为直接传送
+    //如果 差值X > 每帧移动距离 && 目标X - 每帧移动距离 < 视窗宽度 - 视窗右边距 && 目标X + 每帧移动距离 > 视窗左边距
     } else if (ntx > mout && (tx - wcat_runspeedf) < (sw - bodyp[3]) && (tx + wcat_runspeedf) > bodyp[2]) {
-        if (nx < tx) {
-            dirstr += "right";
-            ax += wcat_runspeedf;
+        if (nx < tx) { //如果 当前X < 目标X
+            dirstr += "right"; //动画序列名称 = 向右跑动
+            ax += wcat_runspeedf; //差距X += 每帧移动距离
         } else {
-            dirstr += "left";
-            ax -= wcat_runspeedf;
+            dirstr += "left"; //动画序列名称 = 向左跑动
+            ax -= wcat_runspeedf; //差距X -= 每帧移动距离
         }
-        isedit = true;
+        isedit = true; //使用移动序列设为当前序列
     }
-    if (!isedit) dirstr = claw;
+    if (!isedit) dirstr = claw; //如果否：使用原地序列设为当前序列
+    //如果 新移动动画序列名称没有被定义
     if (dirstr != "") {
+        //目前动画序列 = 动画序列表[动画序列名][动画序列中的第几张]
         tclasss[0] = wcat_ani[dirstr][catanii];
-        catanii++;
-        let nanileng = wcat_ani[dirstr].length;
-        if (catanii >= nanileng) {
+        catanii++; //增加一张
+        let nanileng = wcat_ani[dirstr].length; //当前动画序列里面有几张
+        if (catanii >= nanileng) { //如果 当前在动画序列中的位置 >= 当前动画序列里面的张数
+            //如果是抓挠动作
             if (dirstr == "upclaw" || dirstr == "downclaw" || dirstr == "leftclaw" || dirstr == "rightclaw") {
-                dirstr = "stopani";
-                catplayto2 = true;
-                tcat.attr("catstop",1);
-            } else if (dirstr == "stopani") {
-                dirstr = "sleep";
-                catplayto2 = true;
-                tcat.attr("catstop",1);
+                dirstr = "stopani"; //转换为原地静止动画序列
+                tcat.attr("catstop",1); //标记此猫为静止状态
             }
-            catanii = 0;
+            //如果是原地静止动作
+            else if (dirstr == "stopani") {
+                dirstr = "sleep"; //转换为睡眠动画序列
+                tcat.attr("catstop",1); //标记此猫为静止状态
+            }
+            catanii = 0; //移到动画序列中的第一张
         }
-        tcat.attr("catmode",dirstr);
-        if (movenow) {
+        tcat.attr("catmode",dirstr); //标记此猫动作状态为 dirstr
+        if (movenow) { //如果需要进行瞬移则立即进行移动
             tcat.css({"top":(ty+"px"),"left":(tx+"px"),"width":wcat_sizex,"height":wcat_sizex});
         }
+        //如果没有定义 目前动画序列
         if (tclasss[0] === undefined) {
-            tclasss[0] = "Awake";
-            catanii = 0;
-            wcat_sensitivityi = 0;
-            tcat.attr("catstop",0);
-        } else {
-            if (!movenow) {
-                let ttx = (nx+ax)+"px";
-                let tty = (ny+ay)+"px";
-                wcat_setnicocss(ttx,tty,tcat);
+            tclasss[0] = "Awake"; //转换为警觉动画序列
+            catanii = 0;  //移到动画序列中的第一张
+            wcat_sensitivityi = 0; //初始化警觉动画序列计数器
+            tcat.attr("catstop",0); //标记此猫为移动状态
+        } else { //如果已定义 目前动画序列
+            if (!movenow) { //如果不需要进行瞬移
+                let ttx = (nx+ax)+"px"; //最终X坐标 = 当前X + 差距X
+                let tty = (ny+ay)+"px"; //最终Y坐标 = 当前Y + 差距Y
+                wcat_setnicocss(ttx,tty,tcat); //应用到CSS显示
             }
         }
-        let newclass = tclasss.join(" ");
+        let newclass = tclasss.join(" "); //创建新的 Class 类（控制动画图片）
+        //应用当前图片：Class:当前图片 catani:序列中第几张
         tcat.attr({"class":newclass,"catani":catanii});
     }
 }
 //判断是否为静态状态
 function wcat_islocani(ncatmode) {
+    //当前动画序列名称是否包含在了 wcat_sani 数组中
     return $.inArray(ncatmode, wcat_sani) >= 0 ? true : false;
 }
 //获得初始坐标
 function wcat_centerxy() {
-    let csize = wcat_sizex * 0.5;
+    let csize = wcat_sizex * 0.5; //自身一半尺寸
+    //屏幕一半尺寸 - 自身一半尺寸
     let x = (document.documentElement.clientWidth * 0.5) - csize;
     let y = (document.documentElement.clientHeight * 0.5) - csize;
     return [x,y];
@@ -201,7 +217,7 @@ function wcat_resetmaininterval() {
     let centerxy = wcat_centerxy();
     let nekos = $(".neko");
     wcat_setnicocss(centerxy[1],centerxy[0]);
-    nekos.attr({"catmode":"awake","catplay":0,"catstop":0,"catani":0});
+    nekos.attr({"catmode":"awake","catstop":0,"catani":0});
     wcat_mousexy = [-1000,-1000];
     nekos.css("transform",("scale("+wcat_scale+")"));
     wcat_setmaininterval(true);
@@ -225,7 +241,7 @@ function wcat_initxy() {
     let centerxy = wcat_centerxy();
     wcat_setnicocss(centerxy[1],centerxy[0]);
     let nekos = $(".neko");
-    nekos.attr({"catmode":"awake","catplay":0,"catstop":0,"catani":0});
+    nekos.attr({"catmode":"awake","catstop":0,"catani":0});
     nekos.css("transform",("scale("+wcat_scale+")"));
     $(window).mousemove(function(e) {
         let x = e.pageX;
