@@ -1,13 +1,17 @@
 var nekoconfigwindow = $("#nekoconfigwindow");
 var aboutwindow = $("#nekoaboutwindow");
-function wcat_showconfig(isshow) {
+function wneko_showconfig(isshow) {
     if (isshow) {
         nekoconfigwindow.css("display","block");
     } else {
         nekoconfigwindow.css("display","none");
     }
+    document.getElementById("wneko_ssize").value = wneko_scale;
+    document.getElementById("wneko_sref").value = wneko_runspeed;
+    document.getElementById("wneko_sspeed").value = wneko_runspeedf;
+    document.getElementById("wneko_ssens").value = wneko_sensitivityp;
 }
-function wcat_showabout(isshow) {
+function wneko_showabout(isshow) {
     if (isshow) {
         aboutwindow.css("display","block");
         nekoconfigwindow.css("display","none");
@@ -16,11 +20,11 @@ function wcat_showabout(isshow) {
         nekoconfigwindow.css("display","block");
     }
 }
-function wcat_saveconfbtn() {
-    wcat_scale = parseFloat(document.getElementById("wcat_ssize").value);
-    wcat_runspeed = parseInt(document.getElementById("wcat_sref").value);
-    wcat_runspeedx = parseInt(document.getElementById("wcat_sspeed").value);
-    wcat_sensitivity = parseInt(document.getElementById("wcat_ssens").value);
-    wcat_resetmaininterval();
-    wcat_showconfig(false);
+function wneko_saveconfbtn() {
+    wneko_scale = parseFloat(document.getElementById("wneko_ssize").value);
+    wneko_runspeed = parseInt(document.getElementById("wneko_sref").value);
+    wneko_runspeedf = parseInt(document.getElementById("wneko_sspeed").value);
+    wneko_sensitivityp = parseInt(document.getElementById("wneko_ssens").value);
+    wneko_resetmaininterval();
+    wneko_showconfig(false);
 }

@@ -12,23 +12,23 @@
 </head>
 <body>
     <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
-    <div id="nekoconficon" class="wcat" ondblclick="wcat_showconfig(true)">
+    <div id="nekoconficon" class="wcat" ondblclick="wneko_showconfig(true)">
         <p><span class="AppIcon nekocfg0"></span><br/>NicoConfig</p>
     </div>
-    <span class="yawn2 neko0 neko wcat" ondblclick="wcat_showconfig(true)"></span>
+    <span class="yawn2 neko0 neko wcat" ondblclick="wneko_showconfig(true)"></span>
     <div id="nekoconfigwindow" class="w9xwindow wcat">
         <div id="nekoconfigwindowbg" class="w9xwindowbg">
             <div class="w9xtitlebg">🐱&nbsp;Configure&nbsp;Neko</div>
-            <div class="w9xtitlebtnbox"><div class="w9xtitlebtn w9x3dobject w9xbutton" onclick="wcat_showconfig(false)">×</div></div>
+            <div class="w9xtitlebtnbox"><div class="w9xtitlebtn w9x3dobject w9xbutton" onclick="wneko_showconfig(false)">×</div></div>
             <div class="w9windowsvc">
                 <p><span class="displayi nekocfg0"></span>&nbsp;Display</p>
-                Size:<br/><span class="w9xinputbborder"><span class="w9xinputbg"><input type="wcat_ssize" name="wcat_ssize" id="wcat_ssize" value="1.0"></span></span><br/>&emsp;<br/>
-                Refresh:<br/><span class="w9xinputbborder"><span class="w9xinputbg"><input type="wcat_sref" name="wcat_sref" id="wcat_sref" value="200"></span></span><br/>&emsp;<br/>
+                Size:<br/><span class="w9xinputbborder"><span class="w9xinputbg"><input type="wneko_ssize" name="wneko_ssize" id="wneko_ssize" value="1.0"></span></span><br/>&emsp;<br/>
+                Refresh:<br/><span class="w9xinputbborder"><span class="w9xinputbg"><input type="wneko_sref" name="wneko_sref" id="wneko_sref" value="200"></span></span><br/>&emsp;<br/>
                 <p><span class="movement nekocfg0"></span>&nbsp;Sensitivity</p>
-                Speed:<br/><span class="w9xinputbborder"><span class="w9xinputbg"><input type="wcat_sspeed" name="wcat_sspeed" id="wcat_sspeed" value="10"></span></span><br/>&emsp;<br/>
-                Sensitivity:<br/><span class="w9xinputbborder"><span class="w9xinputbg"><input type="wcat_ssens" name="wcat_ssens" id="wcat_ssens" value="64"></span></span><br/>&emsp;<br/>
+                Speed:<br/><span class="w9xinputbborder"><span class="w9xinputbg"><input type="wneko_sspeed" name="wneko_sspeed" id="wneko_sspeed" value="10"></span></span><br/>&emsp;<br/>
+                Sensitivity:<br/><span class="w9xinputbborder"><span class="w9xinputbg"><input type="wneko_ssens" name="wneko_ssens" id="wneko_ssens" value="64"></span></span><br/>&emsp;<br/>
                 <div class="w9xdiglogbtnbox">
-                <p><div class="w9xtextbutton w9x3dobject w9xbutton" onclick="wcat_saveconfbtn()"><u>O</u>K</div>&emsp;<div class="w9xtextbutton w9x3dobject w9xbutton" onclick="wcat_showabout(true)"><u>A</u>bout</div>&emsp;<div class="w9xtextbutton w9x3dobject w9xbutton" onclick="wcat_exit()"><u>U</u>nload</div></p>
+                <p><div class="w9xtextbutton w9x3dobject w9xbutton" onclick="wneko_saveconfbtn()"><u>O</u>K</div>&emsp;<div class="w9xtextbutton w9x3dobject w9xbutton" onclick="wneko_showabout(true)"><u>A</u>bout</div>&emsp;<div class="w9xtextbutton w9x3dobject w9xbutton" onclick="wneko_exit()"><u>U</u>nload</div></p>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
     <div id="nekoaboutwindow" class="w9xwindow wcat">
         <div id="nekoconfigwindowbg" class="w9xwindowbg">
             <div class="w9xtitlebg">🐱&nbsp;About&nbsp;Neko</div>
-            <div class="w9xtitlebtnbox"><div class="w9xtitlebtn w9x3dobject w9xbutton" onclick="wcat_showabout(false)">×</div></div>
+            <div class="w9xtitlebtnbox"><div class="w9xtitlebtn w9x3dobject w9xbutton" onclick="wneko_showabout(false)">×</div></div>
             <div class="w9windowsvc">
                 <span class="yawn2 neko0 nekoz"></span>
                 <p class="nekoabouttext">
@@ -47,7 +47,7 @@
                 </p>
                 <p class="nekoabouttext">This program is proud to be FREEWARE!</p>
                 <div class="w9xdiglogbtnbox">
-                <p><div class="w9xtextbutton w9x3dobject w9xbutton" onclick="window.location.href='https://github.com/kagurazakayashi/wneko'"><u>G</u>ithub...</div>&emsp;<div class="w9xtextbutton w9x3dobject w9xbutton" onclick="wcat_showabout(false)"><u>O</u>K</div></p>
+                <p><div class="w9xtextbutton w9x3dobject w9xbutton" onclick="window.location.href='https://github.com/kagurazakayashi/wneko'"><u>G</u>ithub...</div>&emsp;<div class="w9xtextbutton w9x3dobject w9xbutton" onclick="wneko_showabout(false)"><u>O</u>K</div></p>
                 </div>
             </div>
         </div>
