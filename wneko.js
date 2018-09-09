@@ -4,6 +4,7 @@ var wneko_runspeed = 200; //动画刷新速度
 var wneko_runspeedf = 10; //每次刷新移动距离
 var wneko_sensitivityp = 50; //警觉距离
 var wneko_sensitivityt = 2; //警觉时长
+var wneko_configdiglog = true; //允许打开设置窗口
 //内部变量
 var wneko_size = 32; //尺寸
 var wneko_sizex = wneko_size; //乘缩放率后尺寸
@@ -234,7 +235,7 @@ function wneko_resetmaininterval() {
     wneko_setmaininterval(false);
     let centerxy = wneko_centerxy();
     let nekos = $(".neko");
-    wneko_setnicocss(centerxy[1],centerxy[0]);
+    wneko_setnicocss(centerxy[0],centerxy[1]);
     nekos.attr(wneko_attr);
     wneko_mousexy = [-1000,-1000];
     nekos.css("transform",("scale("+wneko_scale+")"));
@@ -258,7 +259,7 @@ function wneko_setnicocss(x,y,neko=null) {
 //初始化位置
 function wneko_initxy() {
     let centerxy = wneko_centerxy();
-    wneko_setnicocss(centerxy[1],centerxy[0]);
+    wneko_setnicocss(centerxy[0],centerxy[1]);
     let nekos = $(".neko");
     nekos.attr(wneko_attr);
     nekos.css("transform",("scale("+wneko_scale+")"));

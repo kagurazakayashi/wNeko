@@ -1,15 +1,17 @@
 var nekoconfigwindow = $("#nekoconfigwindow");
 var aboutwindow = $("#nekoaboutwindow");
 function wneko_showconfig(isshow) {
-    if (isshow) {
-        nekoconfigwindow.css("display","block");
-    } else {
-        nekoconfigwindow.css("display","none");
+    if (wneko_configdiglog) {
+        if (isshow) {
+            nekoconfigwindow.css("display","block");
+        } else {
+            nekoconfigwindow.css("display","none");
+        }
+        document.getElementById("wneko_ssize").value = wneko_scale;
+        document.getElementById("wneko_sref").value = wneko_runspeed;
+        document.getElementById("wneko_sspeed").value = wneko_runspeedf;
+        document.getElementById("wneko_ssens").value = wneko_sensitivityp;
     }
-    document.getElementById("wneko_ssize").value = wneko_scale;
-    document.getElementById("wneko_sref").value = wneko_runspeed;
-    document.getElementById("wneko_sspeed").value = wneko_runspeedf;
-    document.getElementById("wneko_ssens").value = wneko_sensitivityp;
 }
 function wneko_showabout(isshow) {
     if (isshow) {

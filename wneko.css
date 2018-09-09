@@ -19,7 +19,7 @@
     left: 5px;
     top: 50px;
     width: 300px;
-    height: 180px;
+    height: 230px;
 }
 .nekoz {
     float: left;
@@ -34,10 +34,12 @@
     color: #FFF;
     text-shadow: 1px 1px 1px #000;
     font-size: 9pt;
+    cursor: pointer;
 }
 /* 仿9x画风 */
 .w9xdesktop {
-    background-color: #008080;
+    /* background-color: #008080; */
+    background-color: #FFF;
 }
 .w9xwindow {
     display: block;
