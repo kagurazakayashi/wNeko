@@ -43,15 +43,15 @@ function wneko_runtimerdo() {
 //获取body边界尺寸
 function wneko_bodypadding() {
     return [0,0,0,0]; //(此函数弃用)
-    let tbody = $("body");
-    let paddingleft = parseInt(tbody.css("padding-left"));
-    let paddingright = parseInt(tbody.css("padding-right"));
-    let paddingtop = parseInt(tbody.css("padding-top"));
-    let paddingbottom = parseInt(tbody.css("padding-bottom"));
-    let marginleft = parseInt(tbody.css("margin-left"));
-    let marginright = parseInt(tbody.css("margin-right"));
-    let margintop = parseInt(tbody.css("margin-top"));
-    let marginbottom = parseInt(tbody.css("margin-bottom"));
+    let tnbody = $("body");
+    let paddingleft = parseInt(tnbody.css("padding-left"));
+    let paddingright = parseInt(tnbody.css("padding-right"));
+    let paddingtop = parseInt(tnbody.css("padding-top"));
+    let paddingbottom = parseInt(tnbody.css("padding-bottom"));
+    let marginleft = parseInt(tnbody.css("margin-left"));
+    let marginright = parseInt(tnbody.css("margin-right"));
+    let margintop = parseInt(tnbody.css("margin-top"));
+    let marginbottom = parseInt(tnbody.css("margin-bottom"));
     let pleft = paddingleft + marginleft;
     let pright = paddingright + marginright;
     let ptop = paddingtop + margintop;
@@ -98,6 +98,7 @@ function wneko_direction(tneko) {
     wneko_sizex = wneko_size * wneko_scale; //猫尺寸 = 猫的尺寸 × 猫的缩放倍数
     tx -= wneko_sizex; //移动到鼠标指针左上方
     ty -= wneko_sizex; //移动到鼠标指针左上方
+    
     if (nekostop == 1) { //如果标记为停止
         claw = nnekomode; //新停止动画序列名称 = 当前动画序列名称
     } else {
@@ -264,8 +265,10 @@ function wneko_initxy() {
     nekos.attr(wneko_attr);
     nekos.css("transform",("scale("+wneko_scale+")"));
     $(window).mousemove(function(e) {
-        let x = e.pageX;
-        let y = e.pageY;
+        let px = $(document).scrollLeft(); //页面横向滚动距离
+        let py = $(document).scrollTop();
+        let x = e.pageX - px;
+        let y = e.pageY - py;
         wneko_mousexy = [x,y];
     });
 }

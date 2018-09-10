@@ -20,16 +20,16 @@ was written by `Masayuki Koba` and later modified by `Tatsuya Kato`.
 
 ## Webpage
 
-- `npm install --save jquery`
-- Open `index.html`
+1. `npm install --save jquery`
+2. Open `index.html`
 
 ## WordPress Plugin
 
-- `npm install --save jquery`
-- `npm install --save google-closure-compiler`
-- `sh gwpplugin.sh`
-- Upload the `wpNeko` folder to the `/wp-content/plugins/` directory.
-- Activate the `wpNeko` plugin through the `Plugins` menu in WordPress.
+1. `npm install --save jquery`
+2. `npm install --save google-closure-compiler`
+3. `sh gwpplugin.sh` or `sh gwpplugin-addjq.sh`(include jquery)
+4. Upload the `wpNeko` folder to the `/wp-content/plugins/` directory.
+5. Activate the `wpNeko` plugin through the `Plugins` menu in WordPress.
 
 # Configuring Neko
 

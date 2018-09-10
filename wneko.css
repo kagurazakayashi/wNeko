@@ -1,8 +1,20 @@
+.wnekobox {
+    display: block;
+    overflow: hidden;
+    background: transparent;
+    position: fixed;
+    pointer-events: none;
+    z-index: 100000;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
 .neko, .nekoz {
     display: block;
     overflow: hidden;
     background-repeat: no-repeat;
-    position: absolute;
+    position: fixed;
 }
 /* 以下为设置页面 */
 #nekoconfigwindow {
@@ -12,6 +24,7 @@
     top: 10px;
     width: 200px;
     height: 370px;
+    z-index: 100001;
 }
 #nekoaboutwindow {
     display: none;
