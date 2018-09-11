@@ -34,12 +34,6 @@ const wneko_ani = {
 };
 //位置静止动画列表
 const wneko_sani = ["downclaw","leftclaw","rightclaw","upclaw","stopani"];
-//移动定时器触发
-function wneko_runtimerdo() {
-    $(".neko").each(function(){
-        wneko_direction($(this));
-    });
-}
 //获取body边界尺寸
 function wneko_bodypadding() {
     return [0,0,0,0]; //(此函数弃用)
@@ -226,7 +220,11 @@ function wneko_centerxy() {
 //创建和删除定时器
 function wneko_setmaininterval(ison=true) {
     if (ison) {
-        wneko_anitimer = setInterval("wneko_runtimerdo()",wneko_runspeed);
+        wneko_anitimer = setInterval(function(){
+            $(".neko").each(function(){
+                wneko_direction($(this));
+            });
+        },wneko_runspeed);
     } else {
         clearInterval(wneko_anitimer);
     }

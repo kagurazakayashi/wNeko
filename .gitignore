@@ -3,3 +3,4 @@ jquery-*.min.js
 node_modules
 package-lock.json
 wpNeko/lib
+tampermonkey/wneko.js

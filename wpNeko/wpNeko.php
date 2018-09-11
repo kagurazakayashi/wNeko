@@ -24,9 +24,6 @@ add_action("wp_head","wpnekoHead");
 function wpneko(){
     echo '<!-- wpNeko : https://github.com/kagurazakayashi/wneko -->';
     ?>
-    <div id="nekoconficon" class="wneko" onclick="wneko_showconfig(true)">
-        <p><span class="AppIcon nekocfg0"></span><br/>NicoConfig</p>
-    </div>
     <span class="yawn2 neko0 neko wneko" ondblclick="wneko_showconfig(true)"></span>
     <div id="nekoconfigwindow" class="w9xwindow wneko">
         <div id="nekoconfigwindowbg" class="w9xwindowbg">
