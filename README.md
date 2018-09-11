@@ -65,7 +65,7 @@ A configuration program has been supplied with wNeko. Double click on the neko. 
 
 Having too many Nekos - especially if they're high speed will result in a reduction of system resources. This is unavoidable.
 
-# LICENSE
+# License
 
 TERMS OF USE
 
@@ -74,3 +74,5 @@ This program is totally unsupported FREEWARE and you use it at your own risk. Ne
 As this program is unsupported, the author is under no obligation to read or reply to any questions regarding the operation of this program.
 
 If you do not agree with these terms, you may not use this software.
+
+Code License : MIT.
