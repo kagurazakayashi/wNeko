@@ -10,11 +10,11 @@ When you run the demo webpage `index.html`, a webpage is opened with Neko inside
 
 As you move the mouse, Neko will follow. If the mouse is inside the webpage and it is not moving, Neko will go to sleep. When the mouse is moved Neko will awake and will chase the mouse. If the mouse is outside the window and it is not moving, Neko will scratch the webpage window boundary and goes to sleep.
 
-![Neko will scratch the webpage window boundary](https://github.com/kagurazakayashi/wneko/blob/master/ScreenShot/b.jpg?raw=true)
+![Neko will scratch the webpage window boundary](ScreenShot/b.jpg?raw=true)
 
 Written by [`Kagurazaka Yashi`](https://github.com/kagurazakayashi). Taking ingredients from Windows Version : The original program (X-Windows) was written by `Masayuki Koba` and later modified by `Tatsuya Kato`.
 
-![Neko](https://github.com/kagurazakayashi/wneko/blob/master/texture/neko2/t_neko2.gif?raw=true)
+![Neko](texture/neko2/t_neko2.gif?raw=true)
 
 # Running Neko
 
@@ -40,7 +40,7 @@ Add:
 3. copy the contents of `tampermonkey/wneko.js` to Editor
 4. File - Save
 
-![Tampermonkey® Script](https://github.com/kagurazakayashi/wneko/blob/master/ScreenShot/t.jpg?raw=true)
+![Tampermonkey® Script](ScreenShot/t.jpg?raw=true)
 
 Edit:
 
@@ -51,7 +51,7 @@ Edit:
 
 Link URLs:
 
-- `//github.com/kagurazakayashi/wneko/blob/master/neko0.gif?raw=true`
+- `//github.com/kagurazakayashi/wNeko/blob/master/neko0.gif?raw=true`
 - `//code.jquery.com/jquery-1.11.0.min.js`
   - Edit: `tampermonkey/wneko.tmp.js` Line 20: `url_nico`
 
@@ -59,7 +59,7 @@ Link URLs:
 
 A configuration program has been supplied with wNeko. Double click on the neko. From here you can set all of the options for wNeko.
 
-![Double click on the neko](https://github.com/kagurazakayashi/wneko/blob/master/ScreenShot/o.jpg?raw=true)
+![Double click on the neko](ScreenShot/o.jpg?raw=true)
 
 ## Change Texture
 
@@ -70,6 +70,8 @@ A configuration program has been supplied with wNeko. Double click on the neko. 
 texturename copyright: `texture/<texturename>/COPYRIGHT`
 
 Optional step: [Update WordPress Plugin](#wordpress-plugin)
+
+[Texture List](https://github.com/kagurazakayashi/wNeko/tree/master/texture)
 
 # Known Problems
 

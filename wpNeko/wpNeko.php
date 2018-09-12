@@ -5,7 +5,7 @@
  */
 /*
 Plugin Name: wpNeko
-Plugin URI: https://github.com/kagurazakayashi/wneko
+Plugin URI: https://github.com/kagurazakayashi/wNeko
 Description: Neko is a little cat who sits on the webpage and chases the mouse pointer around.
 Version: 1.0
 Author: KagurazakaYashi
@@ -22,7 +22,7 @@ function wpnekoHead() {
 add_action("wp_head","wpnekoHead");
 
 function wpneko(){
-    echo '<!-- wpNeko : https://github.com/kagurazakayashi/wneko -->';
+    echo '<!-- wpNeko : https://github.com/kagurazakayashi/wNeko -->';
     ?>
     <span class="yawn2 wnekotexture neko wneko" ondblclick="wneko_showconfig(true)"></span>
     <div id="nekoconfigwindow" class="w9xwindow wneko">
@@ -54,7 +54,7 @@ function wpneko(){
                 </p>
                 <p class="nekoabouttext">This program is proud to be FREEWARE!</p>
                 <div class="w9xdiglogbtnbox">
-                <p><div class="w9xtextbutton w9x3dobject w9xbutton" onclick="window.lonekoion.href='https://github.com/kagurazakayashi/wneko'"><u>G</u>ithub...</div>&emsp;<div class="w9xtextbutton w9x3dobject w9xbutton" onclick="wneko_showabout(false)"><u>O</u>K</div></p>
+                <p><div class="w9xtextbutton w9x3dobject w9xbutton" onclick="window.lonekoion.href='https://github.com/kagurazakayashi/wNeko'"><u>G</u>ithub...</div>&emsp;<div class="w9xtextbutton w9x3dobject w9xbutton" onclick="wneko_showabout(false)"><u>O</u>K</div></p>
                 </div>
             </div>
         </div>
