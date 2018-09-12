@@ -4,3 +4,4 @@ node_modules
 package-lock.json
 wpNeko/lib
 tampermonkey/wneko.js
+Thumbs.db

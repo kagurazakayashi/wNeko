@@ -14,7 +14,7 @@ As you move the mouse, Neko will follow. If the mouse is inside the webpage and 
 
 Written by [`Kagurazaka Yashi`](https://github.com/kagurazakayashi). Taking ingredients from Windows Version : The original program (X-Windows) was written by `Masayuki Koba` and later modified by `Tatsuya Kato`.
 
-![Neko](https://github.com/kagurazakayashi/wneko/blob/master/neko0.gif?raw=true)
+![Neko](https://github.com/kagurazakayashi/wneko/blob/master/texture/neko2/t_neko2.gif?raw=true)
 
 # Running Neko
 
@@ -60,6 +60,16 @@ Link URLs:
 A configuration program has been supplied with wNeko. Double click on the neko. From here you can set all of the options for wNeko.
 
 ![Double click on the neko](https://github.com/kagurazakayashi/wneko/blob/master/ScreenShot/o.jpg?raw=true)
+
+## Change Texture
+
+`sh change.sh <texturename>`
+
+`<texturename>`: `neko2`(default)/`neko`/`bsd`/`dog`/`tora`/`sakura`/`tomoyo`
+
+texturename copyright: `texture/<texturename>/COPYRIGHT`
+
+Optional step: [Update WordPress Plugin](#wordpress-plugin)
 
 # Known Problems
 

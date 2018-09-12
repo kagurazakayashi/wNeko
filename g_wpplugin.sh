@@ -1,3 +1,4 @@
+rm -rf wpNeko/lib
 mkdir wpNeko/lib
 java -jar node_modules/google-closure-compiler/compiler.jar --js wneko.js > wpNeko/lib/neko.min.js
 java -jar node_modules/google-closure-compiler/compiler.jar --js wnekoconf.js >> wpNeko/lib/neko.min.js

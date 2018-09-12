@@ -24,7 +24,7 @@ add_action("wp_head","wpnekoHead");
 function wpneko(){
     echo '<!-- wpNeko : https://github.com/kagurazakayashi/wneko -->';
     ?>
-    <span class="yawn2 neko0 neko wneko" ondblclick="wneko_showconfig(true)"></span>
+    <span class="yawn2 wnekotexture neko wneko" ondblclick="wneko_showconfig(true)"></span>
     <div id="nekoconfigwindow" class="w9xwindow wneko">
         <div id="nekoconfigwindowbg" class="w9xwindowbg">
             <div class="w9xtitlebg">🐱&nbsp;Configure&nbsp;Neko</div>
@@ -47,7 +47,7 @@ function wpneko(){
             <div class="w9xtitlebg">🐱&nbsp;About&nbsp;Neko</div>
             <div class="w9xtitlebtnbox"><div class="w9xtitlebtn w9x3dobject w9xbutton" onclick="wneko_showabout(false)">×</div></div>
             <div class="w9windowsvc">
-                <span class="yawn2 neko0 nekoz"></span>
+                <span class="awake wnekotexture nekoz"></span>
                 <p class="nekoabouttext">
                     Neko for HTML5 v1.0<br/><br/>
                     Written by Kagurazaka Yashi.<br/>Taking ingredients from Windows Version:<br/>The original program (X-Windows)<br/>was  written by Masayuki Koba and<br/>later modified by Tatsuya Kato.

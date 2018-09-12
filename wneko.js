@@ -16,24 +16,24 @@ var wneko_sensitivityi = -1; //警觉时长计数器
 var wneko_attr = {"nekomode":"awake","nekostop":1,"awake":0,"nekoani":0}; //初始DOM标签
 //动画序列
 const wneko_ani = {
-    "awake":["Awake","Awake","Awake"], //警觉!
-    "down":["Down1","down2"], //↓向下奔跑
-    "downclaw":["yawn2","yawn2","yawn2","yawn2","yawn2","downclaw1","downclaw2","downclaw1","downclaw2","downclaw1","downclaw2","downclaw1","downclaw2","downclaw1","downclaw2","downclaw1","downclaw2","downclaw1","downclaw2","downclaw1","downclaw2","downclaw1","downclaw2","downclaw1","downclaw2"], //↓向下抓挠
-    "downleft":["downleft1","Downleft2"], //↙向左下奔跑
-    "downright":["Downright1","downright2"], //↘向右下奔跑
+    "awake":["awake","awake","awake"], //警觉!
+    "down":["down1","down2"], //↓向下奔跑
+    "downclaw":["mati2","mati2","mati2","mati2","mati2","dtogi1","dtogi2","dtogi1","dtogi2","dtogi1","dtogi2","dtogi1","dtogi2","dtogi1","dtogi2","dtogi1","dtogi2","dtogi1","dtogi2","dtogi1","dtogi2","dtogi1","dtogi2","dtogi1","dtogi2"], //↓向下抓挠
+    "downleft":["dwleft1","dwleft2"], //↙向左下奔跑
+    "downright":["dwright1","dwright2"], //↘向右下奔跑
     "left":["left1","left2"], //←向左奔跑
-    "leftclaw":["yawn2","yawn2","yawn2","yawn2","yawn2","leftclaw1","leftclaw2","leftclaw1","leftclaw2","leftclaw1","leftclaw2","leftclaw1","leftclaw2","leftclaw1","leftclaw2","leftclaw1","leftclaw2","leftclaw1","leftclaw2","leftclaw1","leftclaw2","leftclaw1","leftclaw2","leftclaw1","leftclaw2"], //←向左抓挠
-    "right":["Right1","right2"], //→向右奔跑
-    "rightclaw":["yawn2","yawn2","yawn2","yawn2","yawn2","rightclaw1","Rightclaw2","rightclaw1","Rightclaw2","rightclaw1","Rightclaw2","rightclaw1","Rightclaw2","rightclaw1","Rightclaw2","rightclaw1","Rightclaw2","rightclaw1","Rightclaw2","rightclaw1","Rightclaw2","rightclaw1","Rightclaw2","rightclaw1","Rightclaw2"], //→向右抓挠
-    "up":["Up1","Up2"], //↑向上奔跑
-    "upclaw":["yawn2","yawn2","yawn2","yawn2","yawn2","upclaw1","upclaw2","upclaw1","upclaw2","upclaw1","upclaw2","upclaw1","upclaw2","upclaw1","upclaw2","upclaw1","upclaw2","upclaw1","upclaw2","upclaw1","upclaw2","upclaw1","upclaw2","upclaw1","upclaw2"], //↑向上抓挠
-    "upleft":["Upleft1","Upleft2"], //↖向左上奔跑
-    "upright":["Upright1","Upright2"], //↗向右上奔跑
-    "stopani":["yawn2","yawn2","yawn2","yawn2","yawn2","wash2","yawn2","wash2","yawn2","wash2","yawn2","wash2","yawn2","wash2","yawn2","wash2","yawn2","wash2","yawn2","wash2","yawn2","wash2","yawn2","wash2","yawn2","scratch1","scratch2","scratch1","scratch2","scratch1","scratch2","scratch1","scratch2","scratch1","scratch2","yawn3","yawn3","yawn3"], //原地动画序列
+    "ltogi":["mati2","mati2","mati2","mati2","mati2","ltogi1","ltogi2","ltogi1","ltogi2","ltogi1","ltogi2","ltogi1","ltogi2","ltogi1","ltogi2","ltogi1","ltogi2","ltogi1","ltogi2","ltogi1","ltogi2","ltogi1","ltogi2","ltogi1","ltogi2"], //←向左抓挠
+    "right":["right1","right2"], //→向右奔跑
+    "rtogi":["mati2","mati2","mati2","mati2","mati2","rtogi1","rtogi2","rtogi1","rtogi2","rtogi1","rtogi2","rtogi1","rtogi2","rtogi1","rtogi2","rtogi1","rtogi2","rtogi1","rtogi2","rtogi1","rtogi2","rtogi1","rtogi2","rtogi1","rtogi2"], //→向右抓挠
+    "up":["up1","up2"], //↑向上奔跑
+    "utogi":["mati2","mati2","mati2","mati2","mati2","utogi1","utogi2","utogi1","utogi2","utogi1","utogi2","utogi1","utogi2","utogi1","utogi2","utogi1","utogi2","utogi1","utogi2","utogi1","utogi2","utogi1","utogi2","utogi1","utogi2"], //↑向上抓挠
+    "upleft":["upleft1","upleft2"], //↖向左上奔跑
+    "upright":["upright1","upright2"], //↗向右上奔跑
+    "stopani":["mati2","mati2","mati2","mati2","mati2","jare2","mati2","jare2","mati2","jare2","mati2","jare2","mati2","jare2","mati2","jare2","mati2","jare2","mati2","jare2","mati2","jare2","mati2","jare2","mati2","kaki1","kaki2","kaki1","kaki2","kaki1","kaki2","kaki1","kaki2","kaki1","kaki2","mati3","mati3","mati3"], //原地动画序列
     "sleep":["sleep1","sleep1","sleep1","sleep1","sleep1","sleep2","sleep2","sleep2","sleep2","sleep2"] //睡觉z
 };
 //位置静止动画列表
-const wneko_sani = ["downclaw","leftclaw","rightclaw","upclaw","stopani"];
+const wneko_sani = ["downclaw","ltogi","rtogi","utogi","stopani"];
 //获取body边界尺寸
 function wneko_bodypadding() {
     return [0,0,0,0]; //(此函数弃用)
@@ -104,17 +104,17 @@ function wneko_direction(tneko) {
         //如果 鼠标Y <= 视窗上边距 + 实际尺寸
         else if (ty <= bodyp[0] + wneko_sizex) {
             ty = 0; //鼠标（目标）Y = 0
-            claw = "upclaw"; //静态序列名称 = 向上抓挠
+            claw = "utogi"; //静态序列名称 = 向上抓挠
         }
         //如果 鼠标X + 猫尺寸 + 每帧移动距离 >= 视窗宽度 - 视窗右边距
         if (tx + wneko_sizex + wneko_runspeedf >= sw - bodyp[3]) {
             tx = sw - wneko_sizex; //鼠标（目标）X = 视窗宽度 - 猫尺寸
-            claw = "rightclaw"; //静态序列名称 = 向右抓挠
+            claw = "rtogi"; //静态序列名称 = 向右抓挠
         }
         //如果 鼠标X <= 视窗左边距 + 实际尺寸
         else if (tx <= bodyp[2] + wneko_sizex) {
             tx = 0; //鼠标（目标）X = 0
-            claw = "leftclaw"; //静态序列名称 = 向左抓挠
+            claw = "ltogi"; //静态序列名称 = 向左抓挠
         }
     }
     let cy = ny - ty; //差值 = 当前Y - 鼠标（目标）Y
@@ -169,7 +169,7 @@ function wneko_direction(tneko) {
         let nanileng = wneko_ani[dirstr].length; //当前动画序列里面有几张
         if (nekoanii >= nanileng) { //如果 当前在动画序列中的位置 >= 当前动画序列里面的张数
             //如果是抓挠动作
-            if (dirstr == "upclaw" || dirstr == "downclaw" || dirstr == "leftclaw" || dirstr == "rightclaw") {
+            if (dirstr == "utogi" || dirstr == "downclaw" || dirstr == "ltogi" || dirstr == "rtogi") {
                 dirstr = "stopani"; //转换为原地静止动画序列
                 tneko.attr("awake",0); //标记此猫为非警觉状态
             }
@@ -186,7 +186,7 @@ function wneko_direction(tneko) {
         }
         //如果没有定义 目前动画序列
         if (ntxy && nekostop == 1) {
-            tclasss[0] = "Awake"; //转换为警觉动画序列
+            tclasss[0] = "awake"; //转换为警觉动画序列
             nekoanii = 0;  //移到动画序列中的第一张
             wneko_sensitivityi = 0; //初始化警觉动画序列计数器
             tneko.attr("nekostop",0); //标记此猫为移动状态
