@@ -1,4 +1,4 @@
-.wnekotexture {background-image:url(t_neko2.gif);}
+.wnekotexture {background-image:url(t_neko2.gif);cursor:url(c_neko2.cur),auto;}
 .awake {width:32px; height:32px; background-position: -342px -36px}
 .down1 {width:32px; height:32px; background-position: -308px -70px}
 .dwleft2 {width:32px; height:32px; background-position: -308px -36px}

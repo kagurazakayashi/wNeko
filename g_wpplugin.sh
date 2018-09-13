@@ -6,3 +6,4 @@ cat wneko.css > wpNeko/lib/neko.css
 cat neko0.css >> wpNeko/lib/neko.css
 cat nekocfg.css >> wpNeko/lib/neko.css
 cp -f *.gif wpNeko/lib/
+cp -f *.cur wpNeko/lib/

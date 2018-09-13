@@ -1,4 +1,4 @@
-.wnekotexture {display:inline-block; overflow:hidden; background-repeat: no-repeat;background-image:url(t_sakura.gif);}
+.wnekotexture {background-image:url(t_sakura.gif);cursor:url(c_sakura.cur),auto;}
 .awake {width:32px; height:32px; background-position: -224px -96px}
 .down1 {width:32px; height:32px; background-position: -224px -64px}
 .down2 {width:32px; height:32px; background-position: -192px -96px}

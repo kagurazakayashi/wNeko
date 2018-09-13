@@ -53,7 +53,9 @@ Link URLs:
 
 - `//github.com/kagurazakayashi/wNeko/blob/master/neko0.gif?raw=true`
 - `//code.jquery.com/jquery-1.11.0.min.js`
-  - Edit: `tampermonkey/wneko.tmp.js` Line 20: `url_nico`
+  - Edit: `tampermonkey/wneko.tmp.js`
+    - Line 20: `url_nico`
+    - Line 21: `url_nicocur`
 
 # Configuring Neko
 
