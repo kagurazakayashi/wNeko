@@ -3,6 +3,7 @@ if [ ! -n "$1" ] ;then
 texturename="neko2"
 fi
 rm -rf t_*.gif
+rm -rf c_*.cur
 cat texture/$texturename/$texturename.css > neko0.css
 cp -f texture/$texturename/t_$texturename.gif ./
 cp -f texture/$texturename/c_$texturename.cur ./

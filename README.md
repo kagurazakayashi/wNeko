@@ -2,7 +2,7 @@
 
 ## Neko for HTML5
 
-[ネコネコネ ~](https://www.yoooooooooo.com/yashi/demo/wneko/)
+![Neko](ScreenShot/neko.gif?raw=true) [ネコネコネ ~](https://www.yoooooooooo.com/yashi/demo/wneko/)
 
 Neko is a little cat who sits on the webpage and chases the mouse pointer / touch around.
 
@@ -73,7 +73,7 @@ texturename copyright: `texture/<texturename>/COPYRIGHT`
 
 Optional step: [Update WordPress Plugin](#wordpress-plugin)
 
-[Texture List](https://github.com/kagurazakayashi/wNeko/tree/master/texture)
+♥ [Texture List](https://github.com/kagurazakayashi/wNeko/tree/master/texture) ♥
 
 # Known Problems
 
